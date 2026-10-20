@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  prepal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prepal-app
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      # Optional: Cloud AI keys (if you want server-side keys instead of entering in UI)
+      # - GEMINI_API_KEY=your_key_here
+      # - OPENAI_API_KEY=your_key_here
+    restart: unless-stopped
