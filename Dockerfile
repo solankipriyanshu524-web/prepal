@@ -27,8 +27,9 @@ COPY backend/ ./backend/
 COPY --from=frontend-builder /app/dist ./dist
 
 # Set environment
+ENV PYTHONPATH="/app/backend:/app"
 ENV PORT=8000
 EXPOSE 8000
 
-# Start FastAPI server
-CMD ["python", "-m", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start FastAPI server with dynamic PORT support for Render/Railway/Cloud
+CMD ["sh", "-c", "python -m uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
