@@ -18,19 +18,19 @@ import {
 export default function Whiteboard() {
   const canvasRef = useRef(null);
   const [tool, setTool] = useState('pencil'); // 'pencil', 'rect', 'circle', 'line', 'eraser'
-  const [color, setColor] = useState('#6366f1');
+  const [color, setColor] = useState('#000000');
   const [lineWidth, setLineWidth] = useState(3);
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const [snapshot, setSnapshot] = useState(null);
 
   const colors = [
-    { label: 'Indigo', value: '#6366f1' },
-    { label: 'Cyan', value: '#06b6d4' },
-    { label: 'Emerald', value: '#10b981' },
-    { label: 'Amber', value: '#f59e0b' },
-    { label: 'Rose', value: '#f43f5e' },
-    { label: 'White', value: '#f8fafc' },
+    { label: 'Black', value: '#000000' },
+    { label: 'Indigo', value: '#4f46e5' },
+    { label: 'Cyan', value: '#0284c7' },
+    { label: 'Emerald', value: '#059669' },
+    { label: 'Amber', value: '#d97706' },
+    { label: 'Rose', value: '#e11d48' },
   ];
 
   useEffect(() => {
@@ -47,8 +47,8 @@ export default function Whiteboard() {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Fill dark background
-    ctx.fillStyle = '#0f172a';
+    // Fill white background
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, rect.width, rect.height);
 
     // Draw subtle grid dots
@@ -56,7 +56,7 @@ export default function Whiteboard() {
   }, []);
 
   const drawGrid = (ctx, w, h) => {
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
     const spacing = 28;
     for (let x = 0; x < w; x += spacing) {
       for (let y = 0; y < h; y += spacing) {
@@ -99,7 +99,7 @@ export default function Whiteboard() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
-    ctx.strokeStyle = tool === 'eraser' ? '#0f172a' : color;
+    ctx.strokeStyle = tool === 'eraser' ? '#ffffff' : color;
     ctx.lineWidth = tool === 'eraser' ? lineWidth * 4 : lineWidth;
 
     if (tool === 'pencil' || tool === 'eraser') {
@@ -133,7 +133,7 @@ export default function Whiteboard() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const rect = canvas.getBoundingClientRect();
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, rect.width, rect.height);
     drawGrid(ctx, rect.width, rect.height);
   };
@@ -159,15 +159,15 @@ export default function Whiteboard() {
     const h = 60;
 
     // Box
-    ctx.fillStyle = '#1e293b';
-    ctx.strokeStyle = '#6366f1';
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.roundRect(x, y, w, h, 8);
     ctx.fill();
     ctx.stroke();
 
     // Text label
-    ctx.fillStyle = '#f8fafc';
+    ctx.fillStyle = '#000000';
     ctx.font = '600 13px Outfit, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -175,42 +175,42 @@ export default function Whiteboard() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-900/60 rounded-xl border border-slate-800 overflow-hidden">
+    <div className="flex flex-col h-full bg-white rounded-xl border-2 border-black overflow-hidden shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
       {/* Top Whiteboard Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-slate-950/80 border-b border-slate-800/80 text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-white border-b border-black text-xs">
         {/* Drawing Tools */}
-        <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-lg border border-slate-800">
+        <div className="flex items-center gap-1.5 bg-white p-1 rounded-lg border border-black shadow-sm">
           <button
             onClick={() => setTool('pencil')}
-            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'pencil' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'pencil' ? 'bg-black text-white' : 'text-black hover:bg-zinc-100'}`}
             title="Freehand Pencil"
           >
             <Pencil className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setTool('rect')}
-            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'rect' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'rect' ? 'bg-black text-white' : 'text-black hover:bg-zinc-100'}`}
             title="Rectangle"
           >
             <Square className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setTool('circle')}
-            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'circle' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'circle' ? 'bg-black text-white' : 'text-black hover:bg-zinc-100'}`}
             title="Circle"
           >
             <Circle className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setTool('line')}
-            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'line' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'line' ? 'bg-black text-white' : 'text-black hover:bg-zinc-100'}`}
             title="Line / Connector"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setTool('eraser')}
-            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'eraser' ? 'bg-rose-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`p-1.5 rounded flex items-center gap-1 transition ${tool === 'eraser' ? 'bg-black text-white' : 'text-black hover:bg-zinc-100'}`}
             title="Eraser"
           >
             <Eraser className="w-3.5 h-3.5" />
@@ -218,12 +218,12 @@ export default function Whiteboard() {
         </div>
 
         {/* Color Palette */}
-        <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-lg border border-slate-800">
+        <div className="flex items-center gap-1.5 bg-white p-1 rounded-lg border border-black shadow-sm">
           {colors.map((c) => (
             <button
               key={c.value}
               onClick={() => setColor(c.value)}
-              className={`w-4 h-4 rounded-full transition-transform ${color === c.value ? 'scale-125 ring-2 ring-white/60' : 'opacity-80 hover:opacity-100'}`}
+              className={`w-4 h-4 rounded-full border border-black/40 transition-transform ${color === c.value ? 'scale-125 ring-2 ring-black' : 'opacity-80 hover:opacity-100'}`}
               style={{ backgroundColor: c.value }}
               title={c.label}
             />
@@ -231,35 +231,35 @@ export default function Whiteboard() {
         </div>
 
         {/* Quick System Design Stamps */}
-        <div className="hidden lg:flex items-center gap-1.5 text-slate-300">
-          <span className="text-[11px] text-slate-500 font-medium mr-1">System Nodes:</span>
+        <div className="hidden lg:flex items-center gap-1.5 text-black">
+          <span className="text-[11px] text-zinc-600 font-semibold mr-1">System Nodes:</span>
           <button 
             onClick={() => stampArchitectureNode('Client App', 'client')}
-            className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-300 transition"
+            className="px-2 py-1 rounded bg-white hover:bg-zinc-100 border border-black text-[11px] font-mono text-black transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
           >
             + Client
           </button>
           <button 
             onClick={() => stampArchitectureNode('Load Balancer', 'lb')}
-            className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-300 transition"
+            className="px-2 py-1 rounded bg-white hover:bg-zinc-100 border border-black text-[11px] font-mono text-black transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
           >
             + Nginx / LB
           </button>
           <button 
             onClick={() => stampArchitectureNode('API Server', 'api')}
-            className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-300 transition"
+            className="px-2 py-1 rounded bg-white hover:bg-zinc-100 border border-black text-[11px] font-mono text-black transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
           >
             + API Gateway
           </button>
           <button 
             onClick={() => stampArchitectureNode('Redis Cache', 'cache')}
-            className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-300 transition"
+            className="px-2 py-1 rounded bg-white hover:bg-zinc-100 border border-black text-[11px] font-mono text-black transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
           >
             + Redis
           </button>
           <button 
             onClick={() => stampArchitectureNode('PostgreSQL DB', 'db')}
-            className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-300 transition"
+            className="px-2 py-1 rounded bg-white hover:bg-zinc-100 border border-black text-[11px] font-mono text-black transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
           >
             + Database
           </button>
@@ -269,14 +269,14 @@ export default function Whiteboard() {
         <div className="flex items-center gap-2">
           <button
             onClick={clearCanvas}
-            className="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition"
+            className="p-1.5 rounded bg-white hover:bg-zinc-100 border border-black text-black transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
             title="Clear Board"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={downloadCanvas}
-            className="flex items-center gap-1 px-2.5 py-1 rounded bg-indigo-600/30 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-500/30 transition text-xs"
+            className="flex items-center gap-1 px-2.5 py-1 rounded bg-black hover:bg-zinc-800 text-white border border-black transition text-xs shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
             title="Download Whiteboard"
           >
             <Download className="w-3.5 h-3.5" />
@@ -286,7 +286,7 @@ export default function Whiteboard() {
       </div>
 
       {/* Canvas Drawing Surface */}
-      <div className="relative flex-1 w-full h-full cursor-crosshair overflow-hidden">
+      <div className="relative flex-1 w-full h-full cursor-crosshair overflow-hidden bg-white">
         <canvas
           ref={canvasRef}
           onMouseDown={startDrawing}
@@ -295,7 +295,7 @@ export default function Whiteboard() {
           onMouseLeave={stopDrawing}
           className="w-full h-full block"
         />
-        <div className="absolute bottom-3 left-4 pointer-events-none text-[11px] text-slate-600 font-mono">
+        <div className="absolute bottom-3 left-4 pointer-events-none text-[11px] text-zinc-500 font-mono">
           System Design Architecture Canvas • Interactive Freehand & Blocks
         </div>
       </div>

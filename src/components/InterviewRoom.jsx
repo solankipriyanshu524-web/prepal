@@ -564,7 +564,7 @@ export default function InterviewRoom({
     return pieces.map((piece, i) => {
       if (piece.startsWith('`') && piece.endsWith('`')) {
         return (
-          <code key={i} className="px-1.5 py-0.5 mx-0.5 rounded bg-slate-950/90 text-indigo-300 border border-indigo-500/30 font-mono text-[11px] font-semibold">
+          <code key={i} className="px-1.5 py-0.5 mx-0.5 rounded bg-zinc-100 text-black border border-black font-mono text-[11px] font-bold">
             {piece.slice(1, -1)}
           </code>
         );
@@ -583,8 +583,8 @@ export default function InterviewRoom({
           const lang = lines[0].match(/^[a-z]+/i) ? lines[0] : '';
           const codeSnippet = lang ? lines.slice(1).join('\n') : lines.join('\n');
           return (
-            <div key={pIdx} className="my-2 rounded-xl bg-slate-950 border border-slate-800 p-2.5 font-mono text-xs overflow-x-auto text-emerald-300 shadow-inner">
-              {lang && <span className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">{lang}</span>}
+            <div key={pIdx} className="my-2 rounded-xl bg-zinc-50 border border-black p-2.5 font-mono text-xs overflow-x-auto text-black shadow-sm">
+              {lang && <span className="text-[10px] text-zinc-600 uppercase tracking-wider block mb-1 font-bold">{lang}</span>}
               <pre>{codeSnippet}</pre>
             </div>
           );
@@ -596,9 +596,9 @@ export default function InterviewRoom({
   };
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden bg-[#0a0e17]">
+    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden bg-white text-black">
       {/* MNC Interview Phase Stepper & Countdown Bar */}
-      <div className="px-4 py-2 bg-slate-950/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="px-4 py-2 bg-white border-b border-black flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
           <span className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mr-1">FAANG Round:</span>
           {MNC_STAGES.map((s, idx) => (
@@ -607,11 +607,11 @@ export default function InterviewRoom({
               onClick={() => setManualPhase(s.id)}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition ${
                 currentPhase === s.id
-                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/20'
-                  : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800/80 hover:border-slate-700'
+                  ? 'bg-black text-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                  : 'text-black hover:bg-zinc-100 bg-white border border-black/40 hover:border-black'
               }`}
             >
-              <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-mono ${currentPhase === s.id ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'}`}>
+              <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-mono ${currentPhase === s.id ? 'bg-white text-black font-bold' : 'bg-zinc-100 text-black border border-black/30'}`}>
                 {idx + 1}
               </span>
               <span>{s.label}</span>
@@ -627,8 +627,8 @@ export default function InterviewRoom({
             onClick={() => setIsObserverActive(!isObserverActive)}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-semibold transition ${
               isObserverActive
-                ? 'bg-purple-950/60 text-purple-300 border-purple-500/50 hover:bg-purple-900/60 shadow-sm shadow-purple-900/30'
-                : 'bg-slate-900 text-slate-500 border-slate-800 hover:text-slate-300'
+                ? 'bg-zinc-100 text-black border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
+                : 'bg-white text-zinc-500 hover:text-black border-black/40'
             }`}
             title={isObserverActive ? "Alex is observing your editor live. Click to mute observer." : "Observer muted. Click to activate live observation."}
           >
@@ -647,7 +647,7 @@ export default function InterviewRoom({
               ? 'bg-rose-950/40 text-rose-400 border-rose-500/40' 
               : remainingSeconds <= 600 
               ? 'bg-amber-950/40 text-amber-400 border-amber-500/40'
-              : 'bg-slate-900 text-indigo-300 border-slate-800'
+              : 'bg-white text-black border-black shadow-sm'
           }`}>
             <Clock className="w-3.5 h-3.5" />
             <span>{timeRemainingFormatted}</span>
@@ -655,7 +655,7 @@ export default function InterviewRoom({
 
           <button
             onClick={handleFinish}
-            className="px-3 py-1 rounded-lg bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-xs font-semibold transition"
+            className="px-3 py-1 rounded-lg bg-white hover:bg-rose-600 hover:text-white text-rose-600 border border-black text-xs font-semibold transition shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
           >
             End & Score
           </button>
@@ -665,9 +665,9 @@ export default function InterviewRoom({
       {/* Split View Container */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
         {/* LEFT PANEL: AI Interviewer & Voice Chat (5 Columns) */}
-        <div className="lg:col-span-5 flex flex-col border-r border-slate-800/80 bg-slate-950/60 overflow-hidden">
+        <div className="lg:col-span-5 flex flex-col border-r border-black bg-white overflow-hidden">
           {/* AI Avatar & Audio Visualizer Status Banner */}
-          <div className="p-4 bg-slate-900/80 border-b border-slate-800/80 flex items-center justify-between gap-3">
+          <div className="p-4 bg-zinc-50 border-b border-black flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${
@@ -675,7 +675,7 @@ export default function InterviewRoom({
                     ? 'bg-gradient-to-tr from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/40 ring-2 ring-indigo-400' 
                     : isAiThinking 
                     ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 animate-pulse'
-                    : 'bg-slate-800 text-slate-300 border border-slate-700'
+                    : 'bg-white text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                 }`}>
                   <Bot className="w-6 h-6" />
                 </div>
@@ -687,8 +687,8 @@ export default function InterviewRoom({
 
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-white">Alex • Tech Lead</h3>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">
+                  <h3 className="text-sm font-bold text-black">Alex • Tech Lead</h3>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-200 text-black font-mono border border-black/30">
                     {level.label}
                   </span>
                 </div>
@@ -697,12 +697,12 @@ export default function InterviewRoom({
                 <div className="flex items-center gap-2 mt-1">
                   {isAiSpeaking ? (
                     <div className="flex items-center gap-1 h-4">
-                      <span className="w-1 bg-indigo-400 rounded animate-soundwave-1"></span>
-                      <span className="w-1 bg-indigo-400 rounded animate-soundwave-2"></span>
-                      <span className="w-1 bg-indigo-400 rounded animate-soundwave-3"></span>
-                      <span className="w-1 bg-indigo-400 rounded animate-soundwave-4"></span>
-                      <span className="w-1 bg-indigo-400 rounded animate-soundwave-5"></span>
-                      <span className="text-xs text-indigo-300 font-medium ml-1">Alex is speaking...</span>
+                      <span className="w-1 bg-black rounded animate-soundwave-1"></span>
+                      <span className="w-1 bg-black rounded animate-soundwave-2"></span>
+                      <span className="w-1 bg-black rounded animate-soundwave-3"></span>
+                      <span className="w-1 bg-black rounded animate-soundwave-4"></span>
+                      <span className="w-1 bg-black rounded animate-soundwave-5"></span>
+                      <span className="text-xs text-black font-medium ml-1">Alex is speaking...</span>
                     </div>
                   ) : isAiThinking ? (
                     <span className="text-xs text-amber-400 flex items-center gap-1 font-medium">
@@ -714,7 +714,7 @@ export default function InterviewRoom({
                       Listening to your voice...
                     </span>
                   ) : (
-                    <span className="text-xs text-slate-400">Ready for your input</span>
+                    <span className="text-xs text-zinc-500">Ready for your input</span>
                   )}
                 </div>
               </div>
@@ -725,7 +725,7 @@ export default function InterviewRoom({
               <button
                 onClick={() => setAutoSpeakEnabled(!autoSpeakEnabled)}
                 className={`p-2 rounded-lg text-xs transition ${
-                  autoSpeakEnabled ? 'text-indigo-400 bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300'
+                  autoSpeakEnabled ? 'text-black bg-zinc-100 border border-black' : 'text-zinc-400 hover:text-black border border-black/30'
                 }`}
                 title={autoSpeakEnabled ? 'Voice output ON' : 'Voice output Muted'}
               >
@@ -737,7 +737,7 @@ export default function InterviewRoom({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                   isMicActive 
                     ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30 animate-pulse' 
-                    : 'bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/30'
+                    : 'bg-white hover:bg-zinc-100 text-black border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
                 }`}
               >
                 {isMicActive ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
@@ -761,10 +761,10 @@ export default function InterviewRoom({
                 <div
                   className={`relative group max-w-[88%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                     m.role === 'user'
-                      ? 'bg-indigo-600 text-white rounded-br-none shadow-md shadow-indigo-600/20'
+                      ? 'bg-black text-white rounded-br-none border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]'
                       : m.isProactive
-                      ? 'bg-gradient-to-br from-purple-950/40 via-slate-900 to-indigo-950/40 border border-purple-500/40 text-slate-100 rounded-bl-none shadow-md shadow-purple-950/30 proactive-glow-card'
-                      : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-bl-none shadow-sm'
+                      ? 'bg-zinc-50 border-2 border-black text-black rounded-bl-none shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]'
+                      : 'bg-white border border-black text-black rounded-bl-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                   }`}
                 >
                   {/* Proactive Live Header Badge */}
@@ -831,7 +831,7 @@ export default function InterviewRoom({
             )}
 
             {isAiThinking && (
-              <div className="flex items-center gap-2 p-3 bg-slate-900/60 rounded-xl border border-slate-800 w-fit text-xs text-indigo-300">
+              <div className="flex items-center gap-2 p-3 bg-zinc-50 rounded-xl border border-black w-fit text-xs text-black shadow-sm">
                 <Bot className="w-4 h-4 animate-bounce" />
                 <span>Alex is crafting follow-up questions...</span>
               </div>
@@ -841,14 +841,14 @@ export default function InterviewRoom({
           </div>
 
           {/* Quick Guidance Chips */}
-          <div className="px-4 py-2 border-t border-slate-800/80 bg-slate-950/90 flex items-center gap-2 overflow-x-auto text-xs no-scrollbar">
+          <div className="px-4 py-2 border-t border-black bg-zinc-50 flex items-center gap-2 overflow-x-auto text-xs no-scrollbar">
             <span className="text-slate-500 text-[11px] whitespace-nowrap">MNC Topics:</span>
             <button
               onClick={() => {
                 setCurrentPhase('deep_dive');
                 sendQuickPrompt("How would we design an OOPs class / interface for this in a production codebase?");
               }}
-              className="px-2.5 py-1 rounded-full bg-indigo-950/60 hover:bg-indigo-900/80 text-indigo-300 border border-indigo-500/30 whitespace-nowrap transition"
+              className="px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-black border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap transition"
             >
               🏛️ OOPs & Class Design
             </button>
@@ -857,32 +857,32 @@ export default function InterviewRoom({
                 setCurrentPhase('deep_dive');
                 sendQuickPrompt("How would we scale this system if the dataset is 100GB on disk and cannot fit into RAM?");
               }}
-              className="px-2.5 py-1 rounded-full bg-purple-950/60 hover:bg-purple-900/80 text-purple-300 border border-purple-500/30 whitespace-nowrap transition"
+              className="px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-black border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap transition"
             >
               🌐 Scale to 100M (Architecture)
             </button>
             <button
               onClick={() => sendQuickPrompt("Can you give me a small hint for this problem?")}
-              className="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 whitespace-nowrap transition"
+              className="px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-black border border-black whitespace-nowrap transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
             >
               💡 Ask for Hint
             </button>
             <button
               onClick={() => sendQuickPrompt("Could you evaluate the time and space complexity of my approach?")}
-              className="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 whitespace-nowrap transition"
+              className="px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-black border border-black whitespace-nowrap transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
             >
               ⏱️ Time & Space Big-O
             </button>
             <button
               onClick={() => sendQuickPrompt("What edge cases should I be careful about here?")}
-              className="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 whitespace-nowrap transition"
+              className="px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-black border border-black whitespace-nowrap transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
             >
               🔍 Edge Cases
             </button>
           </div>
 
           {/* Text Input Footer */}
-          <div className="p-3 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
+          <div className="p-3 bg-white border-t border-black flex items-center gap-2">
             <input
               type="text"
               value={inputText}
@@ -892,12 +892,12 @@ export default function InterviewRoom({
               }}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder={isMicActive ? "Speaking into mic... or type here..." : "Type your answer or explanation here..."}
-              className="flex-1 px-4 py-2 text-xs sm:text-sm bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="flex-1 px-4 py-2 text-xs sm:text-sm bg-white border border-black rounded-xl text-black placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-black"
             />
             <button
               onClick={() => handleSendMessage()}
               disabled={!inputText.trim() || isAiThinking}
-              className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white transition shadow-md shadow-indigo-600/30"
+              className="p-2.5 rounded-xl bg-black hover:bg-zinc-800 disabled:opacity-40 text-white transition border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
               title="Send Response"
             >
               <Send className="w-4 h-4" />
@@ -906,16 +906,16 @@ export default function InterviewRoom({
         </div>
 
         {/* RIGHT PANEL: Code Editor & Whiteboard Workspace (7 Columns) */}
-        <div className="lg:col-span-7 flex flex-col bg-[#0b0f19] overflow-hidden">
+        <div className="lg:col-span-7 flex flex-col bg-white overflow-hidden">
           {/* Top Tab Bar */}
-          <div className="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800">
+          <div className="flex items-center justify-between px-4 py-2 bg-white border-b border-black">
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setActiveTab('code')}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                   activeTab === 'code'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    ? 'bg-black text-white border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
+                    : 'bg-white text-black hover:bg-zinc-100 border border-black/30'
                 }`}
               >
                 <Code2 className="w-3.5 h-3.5" />
@@ -926,8 +926,8 @@ export default function InterviewRoom({
                 onClick={() => setActiveTab('whiteboard')}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                   activeTab === 'whiteboard'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    ? 'bg-black text-white border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
+                    : 'bg-white text-black hover:bg-zinc-100 border border-black/30'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -938,8 +938,8 @@ export default function InterviewRoom({
                 onClick={() => setActiveTab('problem')}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                   activeTab === 'problem'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                    ? 'bg-black text-white border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
+                    : 'bg-white text-black hover:bg-zinc-100 border border-black/30'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -952,7 +952,7 @@ export default function InterviewRoom({
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleResetCode}
-                  className="p-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-900 text-xs transition"
+                  className="p-1.5 rounded bg-white hover:bg-zinc-100 border border-black text-black text-xs transition shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
                   title="Reset starter code"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
@@ -961,7 +961,7 @@ export default function InterviewRoom({
                 <button
                   onClick={handleRunCode}
                   disabled={isRunningCode}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black hover:bg-zinc-800 text-white text-xs font-semibold border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition"
                 >
                   <Play className="w-3 h-3 fill-current" />
                   <span>Run Sandbox</span>
@@ -1006,7 +1006,7 @@ export default function InterviewRoom({
                   <Editor
                     height="100%"
                     language={language === 'python' ? 'python' : 'javascript'}
-                    theme="vs-dark"
+                    theme="vs"
                     defaultValue={initialCode}
                     onMount={handleEditorDidMount}
                     onChange={handleEditorChange}
@@ -1047,10 +1047,10 @@ export default function InterviewRoom({
                 </div>
 
                 {/* Console Tray */}
-                <div className="h-32 bg-slate-950 border-t border-slate-800 flex flex-col text-xs font-mono">
-                  <div className="px-3 py-1.5 bg-slate-900 border-b border-slate-800 text-slate-400 flex items-center justify-between">
+                <div className="h-32 bg-white border-t border-black flex flex-col text-xs font-mono">
+                  <div className="px-3 py-1.5 bg-zinc-50 border-b border-black text-black flex items-center justify-between font-bold">
                     <span className="flex items-center gap-1.5 font-semibold text-[11px]">
-                      <Terminal className="w-3 h-3 text-emerald-400" /> Output Console
+                      <Terminal className="w-3 h-3 text-black" /> Output Console
                     </span>
                     <button
                       onClick={() => setConsoleOutput([])}
@@ -1059,7 +1059,7 @@ export default function InterviewRoom({
                       Clear
                     </button>
                   </div>
-                  <div className="flex-1 p-2.5 overflow-y-auto text-slate-300 space-y-1">
+                  <div className="flex-1 p-2.5 overflow-y-auto text-black space-y-1 bg-white">
                     {consoleOutput.length === 0 ? (
                       <span className="text-slate-600 italic">Click 'Run Sandbox' to execute your code...</span>
                     ) : (
@@ -1079,35 +1079,35 @@ export default function InterviewRoom({
             )}
 
             {activeTab === 'problem' && (
-              <div className="flex-1 p-6 overflow-y-auto space-y-6 text-slate-300">
+              <div className="flex-1 p-6 overflow-y-auto space-y-6 text-black bg-white">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="text-xs px-2 py-0.5 rounded font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
                       {currentProblem.difficulty}
                     </span>
-                    <h2 className="text-xl font-bold text-white">{currentProblem.title}</h2>
+                    <h2 className="text-xl font-bold text-black">{currentProblem.title}</h2>
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {currentProblem.tags?.map((tag) => (
-                      <span key={tag} className="text-[11px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">
+                      <span key={tag} className="text-[11px] px-2 py-0.5 rounded-full bg-white text-black border border-black font-medium">
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-3 bg-slate-950/60 p-5 rounded-xl border border-slate-800/80">
-                  <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Problem Statement</h4>
-                  <p className="text-sm text-slate-200 whitespace-pre-wrap leading-relaxed">
+                <div className="space-y-3 bg-zinc-50 p-5 rounded-xl border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  <h4 className="text-xs font-bold text-black uppercase tracking-wider">Problem Statement</h4>
+                  <p className="text-sm text-zinc-800 whitespace-pre-wrap leading-relaxed">
                     {currentProblem.description}
                   </p>
                 </div>
 
-                <div className="space-y-2 bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+                <div className="space-y-2 bg-zinc-50 p-4 rounded-xl border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                   <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                     <Lightbulb className="w-3.5 h-3.5 text-amber-400" /> Evaluation Criteria
                   </h4>
-                  <ul className="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                  <ul className="text-xs text-zinc-700 space-y-1.5 list-disc list-inside">
                     <li>Optimal Time and Space Complexity.</li>
                     <li>Handling edge cases (empty collections, duplicates, maximum value overflow).</li>
                     <li>Clean, idiomatic code structure and explanatory communication.</li>
