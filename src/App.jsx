@@ -20,14 +20,14 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center space-y-4">
-          <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400">
-            <h3 className="text-lg font-bold text-white">Something went wrong rendering the room</h3>
-            <p className="text-xs text-slate-400 mt-1">{this.state.error?.message || 'Unknown error'}</p>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center space-y-4 bg-white">
+          <div className="p-4 rounded-xl bg-white border-2 border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <h3 className="text-lg font-bold text-black">Something went wrong rendering the room</h3>
+            <p className="text-xs text-zinc-600 mt-1">{this.state.error?.message || 'Unknown error'}</p>
           </div>
           <button 
             onClick={() => window.location.reload()} 
-            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 transition"
+            className="px-4 py-2 rounded-xl bg-black hover:bg-zinc-800 text-white text-xs font-semibold border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition"
           >
             Reload Page
           </button>
@@ -132,7 +132,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#090d16] text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen flex flex-col bg-white text-zinc-950 selection:bg-black selection:text-white">
       {/* Navigation */}
       <Navbar
         inInterview={currentView === 'interview'}
@@ -143,7 +143,7 @@ export default function App() {
       />
 
       {/* Main Views */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col bg-white">
         {currentView === 'setup' && (
           <SetupView
             onStartInterview={handleStartInterview}
@@ -180,13 +180,13 @@ export default function App() {
 
       {/* Loading Overlay while generating scorecard */}
       {isGeneratingScorecard && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-md text-white space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center shadow-2xl animate-pulse">
-            <span className="w-8 h-8 border-3 border-indigo-400 border-t-transparent rounded-full animate-spin"></span>
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/80 backdrop-blur-md text-black space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-white border-2 border-black flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-pulse">
+            <span className="w-8 h-8 border-3 border-black border-t-transparent rounded-full animate-spin"></span>
           </div>
           <div className="text-center space-y-1">
-            <h3 className="text-lg font-bold">Analyzing Your Interview...</h3>
-            <p className="text-xs text-slate-400">Evaluating Time/Space Big-O, code structure, and articulation rubric</p>
+            <h3 className="text-lg font-bold text-black">Analyzing Your Interview...</h3>
+            <p className="text-xs text-zinc-600">Evaluating Time/Space Big-O, code structure, and articulation rubric</p>
           </div>
         </div>
       )}
